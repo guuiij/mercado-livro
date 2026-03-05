@@ -1,0 +1,50 @@
+databaseChangeLog:
+  - changeSet:
+      id: V1_000
+      author: guilherme.jadson
+      comment: "Criação da tabela customer"
+      preConditions:
+        - not:
+            tableExists:
+              tableName: customer
+      changes:
+        - createTable:
+            tableName: customer
+            remarks: "Tabela de clientes do marketplace"
+            columns:
+              - column:
+                  name: id
+                  type: INT
+                  remarks: "Identificador único do cliente"
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                  autoIncrement: true
+
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  remarks: "Nome completo do cliente"
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: email
+                  type: VARCHAR(255)
+                  remarks: "Email único do cliente"
+                  constraints:
+                    nullable: false
+                    unique: true
+
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  remarks: "Data de criação do registro"
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+
+      rollback:
+        - dropTable:
+            tableName: customer
+            cascadeConstraints: true

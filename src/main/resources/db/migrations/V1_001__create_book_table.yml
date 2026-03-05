@@ -1,0 +1,73 @@
+databaseChangeLog:
+  - changeSet:
+      id: V1_001
+      author: guilherme.jadson
+      comment: "Criação da tabela book para módulo de livros"
+      preConditions:
+        - not:
+            tableExists:
+              tableName: book
+      changes:
+        - createTable:
+            tableName: book
+            remarks: "Tabela de livros do marketplace"
+            columns:
+              - column:
+                  name: id
+                  type: INT
+                  remarks: "Identificador único do livro"
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+                  autoIncrement: true
+
+              - column:
+                  name: name
+                  type: VARCHAR(255)
+                  remarks: "Nome/título do livro"
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: price
+                  type: DECIMAL(10,2)
+                  remarks: "Preço do livro (suporta até 99999999.99)"
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: status
+                  type: VARCHAR(50)
+                  remarks: "Status do livro: ATIVO, INATIVO, VENDIDO"
+                  constraints:
+                    nullable: false
+
+              - column:
+                  name: customer_id
+                  type: INT
+                  remarks: "ID do cliente/dono do livro (FK)"
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_book_customer
+                    references: customer(id)
+
+              - column:
+                  name: created_at
+                  type: TIMESTAMP
+                  remarks: "Data de criação do registro (auditoria)"
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP
+
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP
+                  remarks: "Data da última atualização do registro"
+                  constraints:
+                    nullable: false
+                  defaultValueComputed: CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+
+      rollback:
+        - dropTable:
+            tableName: book
+            cascadeConstraints: true
