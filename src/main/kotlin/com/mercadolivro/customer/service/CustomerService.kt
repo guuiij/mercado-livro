@@ -1,14 +1,13 @@
-package com.mercadolivro.service
+package com.mercadolivro.customer.service
 
-import com.mercadolivro.model.CustomerModel
-import com.mercadolivro.repository.BookRepository
-import com.mercadolivro.repository.CustomerRepository
+import com.mercadolivro.customer.model.CustomerModel
+import com.mercadolivro.book.repository.BookRepository
+import com.mercadolivro.customer.repository.CustomerRepository
 import org.springframework.stereotype.Service
 
 @Service
 class CustomerService(
-    val customerRepository: CustomerRepository,
-    val bookRepository: BookRepository
+    val customerRepository: CustomerRepository, val bookRepository: BookRepository
 ) {
     fun getAll(name: String?): List<CustomerModel> {
         name?.let {
@@ -37,9 +36,7 @@ class CustomerService(
         if (!customerRepository.existsById(id!!)) {
             throw Exception("Customer not found")
         }
-
         customerRepository.deleteById(id)
-
     }
 
 }

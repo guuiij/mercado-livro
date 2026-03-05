@@ -1,14 +1,21 @@
-package com.mercadolivro.controller
+package com.mercadolivro.book.controller
 
-import com.mercadolivro.controller.request.PostBookRequest
-import com.mercadolivro.extension.toBookModel
-import com.mercadolivro.model.BookModel
-import com.mercadolivro.model.enums.BookStatus
-import com.mercadolivro.service.BookService
-import com.mercadolivro.service.CustomerService
-import org.springframework.data.repository.query.Param
+import com.mercadolivro.book.controller.request.PostBookRequest
+import com.mercadolivro.customer.extension.toBookModel
+import com.mercadolivro.book.model.BookModel
+import com.mercadolivro.book.model.enums.BookStatus
+import com.mercadolivro.book.service.BookService
+import com.mercadolivro.customer.service.CustomerService
 import org.springframework.http.HttpStatus
-import org.springframework.web.bind.annotation.*
+import org.springframework.web.bind.annotation.DeleteMapping
+import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.PathVariable
+import org.springframework.web.bind.annotation.PostMapping
+import org.springframework.web.bind.annotation.PutMapping
+import org.springframework.web.bind.annotation.RequestBody
+import org.springframework.web.bind.annotation.RequestMapping
+import org.springframework.web.bind.annotation.ResponseStatus
+import org.springframework.web.bind.annotation.RestController
 
 @RestController
 @RequestMapping("book")
@@ -36,7 +43,6 @@ class BookController(
 
     @GetMapping("/status/{status}")
     fun findStatusByParam(@PathVariable status: BookStatus): List<BookModel> {
-
         return bookService.findBookByStatus(status)
     }
 
@@ -48,5 +54,10 @@ class BookController(
     @DeleteMapping("/{id}")
     fun deleteById(@PathVariable id: Int) {
         return bookService.deleteById(id)
+    }
+
+    @PutMapping
+    fun update(@RequestBody request: PostBookRequest) {
+        val book = bookService.findById(request.bookId)
     }
 }

@@ -1,8 +1,8 @@
-package com.mercadolivro.service
+package com.mercadolivro.book.service
 
-import com.mercadolivro.model.BookModel
-import com.mercadolivro.model.enums.BookStatus
-import com.mercadolivro.repository.BookRepository
+import com.mercadolivro.book.model.BookModel
+import com.mercadolivro.book.model.enums.BookStatus
+import com.mercadolivro.book.repository.BookRepository
 import org.springframework.stereotype.Service
 
 @Service
@@ -12,11 +12,6 @@ class BookService(
     fun create(book: BookModel) {
         bookRepository.save(book)
     }
-
-    fun getAll(name: String?): List<BookModel> {
-        return bookRepository.findAll().toList()
-    }
-
 
     fun findAll(): List<BookModel> {
         return bookRepository.findAll().toList()
@@ -43,4 +38,3 @@ class BookService(
 
 
 }
-

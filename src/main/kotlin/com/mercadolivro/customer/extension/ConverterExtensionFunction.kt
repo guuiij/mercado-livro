@@ -1,11 +1,11 @@
-package com.mercadolivro.extension
+package com.mercadolivro.customer.extension
 
-import com.mercadolivro.controller.request.PostBookRequest
-import com.mercadolivro.controller.request.PostCustomerRequest
-import com.mercadolivro.controller.request.PutCustomerRequest
-import com.mercadolivro.model.BookModel
-import com.mercadolivro.model.CustomerModel
-import com.mercadolivro.model.enums.BookStatus
+import com.mercadolivro.book.controller.request.PostBookRequest
+import com.mercadolivro.customer.controller.request.PostCustomerRequest
+import com.mercadolivro.customer.controller.request.PutCustomerRequest
+import com.mercadolivro.book.model.BookModel
+import com.mercadolivro.customer.model.CustomerModel
+import com.mercadolivro.book.model.enums.BookStatus
 
 
 fun PostCustomerRequest.toCustomerModel(): CustomerModel {

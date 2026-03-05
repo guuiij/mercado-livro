@@ -1,4 +1,4 @@
-package com.mercadolivro.model
+package com.mercadolivro.customer.model
 
 import jakarta.persistence.Column
 import jakarta.persistence.Entity

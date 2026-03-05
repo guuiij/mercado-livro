@@ -1,6 +1,6 @@
-package com.mercadolivro.repository
+package com.mercadolivro.customer.repository
 
-import com.mercadolivro.model.CustomerModel
+import com.mercadolivro.customer.model.CustomerModel
 import org.springframework.data.repository.CrudRepository
 
 interface CustomerRepository : CrudRepository<CustomerModel, Int>{

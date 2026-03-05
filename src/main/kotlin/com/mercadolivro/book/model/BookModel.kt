@@ -1,7 +1,17 @@
-package com.mercadolivro.model
+package com.mercadolivro.book.model
 
-import com.mercadolivro.model.enums.BookStatus
-import jakarta.persistence.*
+import com.mercadolivro.book.model.enums.BookStatus
+import com.mercadolivro.customer.model.CustomerModel
+import jakarta.persistence.Column
+import jakarta.persistence.Entity
+import jakarta.persistence.EnumType
+import jakarta.persistence.Enumerated
+import jakarta.persistence.GeneratedValue
+import jakarta.persistence.GenerationType
+import jakarta.persistence.Id
+import jakarta.persistence.JoinColumn
+import jakarta.persistence.ManyToOne
+import jakarta.persistence.Table
 import java.math.BigDecimal
 import java.time.LocalDateTime
 
@@ -34,4 +44,3 @@ data class BookModel(
     var updatedAt: LocalDateTime = LocalDateTime.now()
 
 )
-

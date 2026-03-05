@@ -1,4 +1,4 @@
-package com.mercadolivro.model.enums
+package com.mercadolivro.book.model.enums
 
 enum class BookStatus(val descricao: String) {
 
