@@ -1,6 +1,7 @@
 package com.mercadolivro.book.controller
 
 import com.mercadolivro.book.controller.request.PostBookRequest
+import com.mercadolivro.book.controller.request.PutBookRequest
 import com.mercadolivro.customer.extension.toBookModel
 import com.mercadolivro.book.model.BookModel
 import com.mercadolivro.book.model.enums.BookStatus
@@ -27,7 +28,7 @@ class BookController(
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     fun create(@RequestBody request: PostBookRequest) {
-        val customer = customerService.getById(request.customerId)
+        val customer = customerService.findById(request.customerId)
         bookService.create(request.toBookModel(customer))
     }
 
@@ -37,9 +38,8 @@ class BookController(
     }
 
     @GetMapping("/active")
-    fun findActives(): List<BookModel> {
-        return bookService.findActives()
-    }
+    fun findActives(): List<BookModel> = bookService.findActives()
+
 
     @GetMapping("/status/{status}")
     fun findStatusByParam(@PathVariable status: BookStatus): List<BookModel> {
@@ -52,12 +52,15 @@ class BookController(
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     fun deleteById(@PathVariable id: Int) {
-        return bookService.deleteById(id)
+        return bookService.delete(id)
     }
 
     @PutMapping
-    fun update(@RequestBody request: PostBookRequest) {
-        val book = bookService.findById(request.bookId)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    fun update(@PathVariable id: Int, @RequestBody book: PutBookRequest) {
+        val bookSaved = bookService.findById(id)
+        bookService.update(book.toBookModel(bookSaved))
     }
 }

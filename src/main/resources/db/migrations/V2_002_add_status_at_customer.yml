@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - changeSet:
+      id: V2_002
+      author: guilherme.jadson
+      comment: "Adiciona coluna status à tabela customer para controle de ativo/inativo"
+      preConditions:
+        - and:
+            - tableExists:
+                tableName: customer
+            - not:
+                columnExists:
+                  tableName: customer
+                  columnName: status
+      changes:
+        - addColumn:
+            tableName: customer
+            columns:
+              - column:
+                  name: status
+                  type: VARCHAR(50)
+                  remarks: "Status do cliente: ATIVO, INATIVO"
+                  constraints:
+                    nullable: true  # Nullable true para não quebrar registros existentes
+                  defaultValue: "ATIVO"  # Valor padrão para registros existentes
+
+      rollback:
+        - dropColumn:
+            tableName: customer
+            columnName: status
